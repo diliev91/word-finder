@@ -14,17 +14,17 @@ public class WordsFinder {
     public void solve(int wordLength) throws Exception {
         Map<Integer, Set<String>> wordsMap = readWords(wordLength);
         Set<String> startingWords = wordsMap.get(wordLength);
-        Set<String> reusableWords = new HashSet<>();
+        Set<String> reducibleWords = new HashSet<>();
         for(String word : startingWords) {
             if(canBeReduced(word, wordLength, wordsMap, new HashSet<>())) {
-                reusableWords.add(word);
+                reducibleWords.add(word);
             }
         }
         System.out.println("Valid words:");
-        for (String word : reusableWords) {
+        for (String word : reducibleWords) {
             System.out.println(word);
         }
-        System.out.println("Word count: " + reusableWords.size());
+        System.out.println("Word count: " + reducibleWords.size());
     }
 
 
@@ -58,7 +58,7 @@ public class WordsFinder {
 
             while ((word = in.readLine()) != null) {
                 int length = word.length();
-                if(length >wordLength) {
+                if(length > wordLength) {
                     continue;
                 }
                 wordMap.computeIfAbsent(length, k -> new HashSet<>()).add(word);
